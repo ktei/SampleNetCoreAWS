@@ -3,7 +3,7 @@ FROM microsoft/dotnet:2.0.4-sdk-2.1.3 as builder
 COPY . /app
 WORKDIR /app
 RUN ["dotnet", "restore", "--no-cache"]
-RUN dotnet publish -c Release
+RUN dotnet publish -c Release -r linux-x64
 
 FROM microsoft/dotnet:2.0.4-runtime
 WORKDIR /app
