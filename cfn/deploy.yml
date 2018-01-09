@@ -4,74 +4,74 @@ Description: ECS Service - sample-netcore
 
 Parameters:
   ApplicationName:
-    Default: sample-netcore
     Type: String
     Description: The name of the application we're trying to deploy, which will be
       used for service name and container name etc.
+    Default: sample-netcore
 
   EnvironmentName:
-    Default: Development
     Type: String
     Description: The runtime environment name for this application, e.g. ASPNETCORE_ENVIRONMENT
       for Dotnet Core, NODE_ENV for Node
+    Default: Development
 
   BaseImageName:
     Type: String
     Description: The docker image name
 
   EnableHttps:
-    Default: false
     Type: String
     Description: Set this to true if you want to encrpyted traffic between ALB and ECS
+    Default: false
 
   ClusterName:
-    Default: SpotFleetCluster
     Type: String
     Description: The name of the ECS cluster where this service is about to be deployed
+    Default: ApplicationCluster
 
   DesiredCount:
-    Default: 1
     Type: Number
     Description: How many instance of this task should we run across our cluster?
+    Default: 1
 
   Priority:
-    Default: 1
     Description: Priority to evaluate Path rules
     Type: Number
     MaxValue: 50000
     MinValue: 1
+    Default: 1
 
   ImageTag:
     Type: String
     Description: The docker image tag
 
   HealthCheckPath:
-    Default: /
     Type: String
     Description: Every container must provide a health url for the load balancer to
       test with
+    Default: /
 
   DeregistrationDelay:
-    Default: 5
     Type: Number
     Description: The duration (in seconds) ECS waits for before degistrating a container
+    Default: 5
 
   Memory:
-    Default: 256
     Type: Number
     Description: 'Soft memory limit of this task: the service cannot use memory above
       this number'
+    Default: 256
 
   Path:
-    Default: /*
     Type: String
     Description: The path to register with the ALB
+    Default: /*
 
   ContainerPort:
-    Default: 5000
     Type: Number
     Description: The port the load balancer will map traffic to on the container;
       this application should listen to this port as well
+    Default: 5000
 
 Conditions:
   httpsEnabled: !Equals
