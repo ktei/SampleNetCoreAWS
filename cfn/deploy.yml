@@ -65,7 +65,7 @@ Parameters:
   Path:
     Type: String
     Description: The path to register with the ALB
-    Default: /*
+    Default: /app*
 
   ContainerPort:
     Type: Number

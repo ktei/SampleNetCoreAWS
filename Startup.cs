@@ -25,11 +25,16 @@ namespace SampleNetCoreAWS
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Map("/healthcheck", HandleHealthCheck);
+            app.Map("/app/healthcheck", HandleHealthCheck);
 
-            app.Run(async (context) =>
+            app.Map("/app", HandleApp);
+        }
+
+        private static void HandleApp(IApplicationBuilder app)
+        {
+            app.Run(async context =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                await context.Response.WriteAsync("Hello world!");
             });
         }
 
