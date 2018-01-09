@@ -3,10 +3,10 @@ FROM microsoft/dotnet:2.0.4-sdk-2.1.3 as builder
 COPY . /app
 WORKDIR /app
 RUN ["dotnet", "restore", "--no-cache"]
-RUN dotnet publish -c Release -r linux-x64
+RUN dotnet publish -c Release
 
 FROM microsoft/dotnet:2.0.4-runtime
 WORKDIR /app
-COPY --from=builder /app/bin/Release/netcoreapp2.0/linux-x64/publish .
+COPY --from=builder /app/bin/Release/netcoreapp2.0/publish .
 EXPOSE 5000
 ENTRYPOINT ["dotnet", "SampleNetCoreAWS.dll"]
