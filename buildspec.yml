@@ -1,0 +1,22 @@
+version: 0.1
+
+phases:
+  pre_build:
+    commands:
+      - echo -n "$CODEBUILD_BUILD_ID" | sed "s/.*:\([[:xdigit:]]\{7\}\).*/\1/" > /tmp/build_id.out
+      - printf '{"tag":"%s"}' "$(cat /tmp/build_id.out)" > build.json
+      - echo Logging in to Amazon ECR
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+  build:
+    commands:
+      - echo Build started on `date` for $ASPNETCORE_ENVIRONMENT
+      - docker build --tag "$REPOSITORY_URI:$(cat /tmp/build_id.out)" .
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push "$REPOSITORY_URI:$(cat /tmp/build_id.out)"
+artifacts:
+  files:
+    - build.json
+    - cfn/**/*
