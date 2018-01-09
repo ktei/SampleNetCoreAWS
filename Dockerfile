@@ -7,6 +7,6 @@ RUN dotnet publish -c Release -r linux-x64
 
 FROM microsoft/dotnet:2.0.4-runtime
 WORKDIR /app
-COPY --from=builder /app/bin/Release/netcoreapp2.0/publish .
+COPY --from=builder /app/bin/Release/netcoreapp2.0/linux-x64/publish .
 EXPOSE 5000
 ENTRYPOINT ["dotnet", "SampleNetCoreAWS.dll"]
