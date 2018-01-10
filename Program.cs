@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +20,11 @@ namespace SampleNetCoreAWS
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseKestrel(options =>
+                {
+                    options.AddServerHeader = false;
+                    options.Listen(IPAddress.Any, int.Parse(Environment.GetEnvironmentVariable("PORT") ?? "5000"));
+                })
                 .UseStartup<Startup>()
                 .Build();
     }
